@@ -32,6 +32,9 @@ use warnings;
 use Data::Dumper;
 use Tk;
 
+my $cont_rdpfile;
+my $rdpfile = $ENV{"HOME"} . "/.rdpgui.db";
+
 # Main Window
 my $mw = new MainWindow;
 
@@ -41,8 +44,17 @@ my $frm = $mw->Frame();
 # Selection
 my $lst = $frm->Listbox(-selectmode=>'single',-width=>50);
 
-# Listbox
-$lst->insert('end', "test.tld:port|Administrator");
+# Populate listbox from file
+open(my $fh, $rdpfile) or die "Can't open $rdpfile: $!";
+while ( ! eof($fh) ) {
+	defined( $_ = <$fh> )
+	or die "readline failed for $rdpfile: $!";
+	chomp();
+	$cont_rdpfile = $_;
+
+	$lst->insert('end', $cont_rdpfile);
+}
+close($fh);
 
 my $but = $mw->Button(-text=>"Connect", -command =>\&push_button);
 
@@ -56,5 +68,7 @@ MainLoop;
 # This function will be executed when the button is pushed
 sub push_button {
 	my $name = $lst->get('active');
-	print Dumper $name;
+	my ($host, $user) = split(/\|/, $name);
+	system("xfreerdp /size:1280x715 /u:$user /sec:rdp /clipboard:1 /compression:1 /printer:1 /v:$host &");
+	exit;
 }
