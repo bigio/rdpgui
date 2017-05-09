@@ -56,12 +56,20 @@ while ( ! eof($fh) ) {
 }
 close($fh);
 
+my $lbl_srv = $mw->Label( -text => "Server: " )->pack;
+my $txt_srv = $mw->Entry( -width => 30 )->pack;
+my $lbl_user = $mw->Label( -text => "User: " )->pack;
+my $txt_user = $mw->Entry( -width => 30 )->pack;
 my $but = $mw->Button(-text=>"Connect", -command =>\&push_button);
 
 # Geometry Management
-$lst->grid(-row=>2,-column=>1);
-$frm->grid(-row=>2,-column=>2);
-$but->grid(-row=>4,-column=>1,-columnspan=>2);
+$frm->grid(-row=>2,-column=>1,-columnspan=>6);
+$lst->grid(-row=>2,-column=>2);
+$lbl_srv->grid(-row=>3,-column=>3);
+$txt_srv->grid(-row=>3,-column=>4);
+$lbl_user->grid(-row=>3,-column=>5);
+$txt_user->grid(-row=>3,-column=>6);
+$but->grid(-row=>4,-column=>1,-columnspan=>6);
 
 MainLoop;
 
@@ -69,6 +77,12 @@ MainLoop;
 sub push_button {
 	my $name = $lst->get('active');
 	my ($host, $user) = split(/\|/, $name);
+	if ( defined ($txt_srv->get()) ) {
+		$host = $txt_srv->get();
+	}
+	if ( defined ($txt_user->get()) ) {
+		$user = $txt_user->get();
+	}
 	system("xfreerdp /size:1280x715 /u:$user /sec:rdp /clipboard:1 /compression:1 /printer:1 /v:$host &");
 	exit;
 }
