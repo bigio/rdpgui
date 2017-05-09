@@ -77,10 +77,10 @@ MainLoop;
 sub push_button {
 	my $name = $lst->get('active');
 	my ($host, $user) = split(/\|/, $name);
-	if ( defined ($txt_srv->get()) ) {
+	if ( $txt_srv->get() ne "" ) {
 		$host = $txt_srv->get();
 	}
-	if ( defined ($txt_user->get()) ) {
+	if ( $txt_user->get() ne "" ) {
 		$user = $txt_user->get();
 	}
 	system("xfreerdp /size:1280x715 /u:$user /sec:rdp /clipboard:1 /compression:1 /printer:1 /v:$host &");
