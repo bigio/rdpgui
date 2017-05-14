@@ -42,7 +42,9 @@ my $mw = new MainWindow;
 my $frm = $mw->Frame();
 
 # Selection
-my $lst = $frm->Listbox(-selectmode=>'single',-width=>50);
+my $lst = $frm->Listbox(-selectmode=>'single',
+			-width=>50,
+			-height=>30);
 
 # Populate listbox from file
 open(my $fh, $rdpfile) or die "Can't open $rdpfile: $!";
