@@ -85,6 +85,6 @@ sub push_button {
 	if ( $txt_user->get() ne "" ) {
 		$user = $txt_user->get();
 	}
-	system("xfreerdp /size:1280x715 /u:$user /sec:rdp /clipboard:1 /compression:1 /printer:1 /v:$host &");
+	system("xfreerdp /size:95% /u:$user /sec:rdp /clipboard:1 /compression:1 /printer:1 /v:$host &");
 	exit;
 }
