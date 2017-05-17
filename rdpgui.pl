@@ -31,9 +31,20 @@ use warnings;
 
 use Data::Dumper;
 use Tk;
+use X11::Protocol;
 
 my $cont_rdpfile;
 my $rdpfile = $ENV{"HOME"} . "/.rdpgui.db";
+
+# Calculate screen size
+my $x11 = X11::Protocol->new();
+$x11->init_extension('XINERAMA') or die;
+my @rectangles = $x11->XineramaQueryScreens ();
+my (undef, undef, $rdp_width, $rdp_height) = @{$rectangles[0]};
+
+# 95% of screen
+$rdp_width = $rdp_width * 95 / 100;
+$rdp_height = $rdp_height * 95 / 100;
 
 # Main Window
 my $mw = new MainWindow;
@@ -85,6 +96,6 @@ sub push_button {
 	if ( $txt_user->get() ne "" ) {
 		$user = $txt_user->get();
 	}
-	system("xfreerdp /size:95% /u:$user /sec:rdp /clipboard:1 /compression:1 /printer:1 /v:$host &");
+	system("xfreerdp /size:${rdp_width}x${rdp_height} /u:$user /sec:rdp /clipboard:1 /compression:1 /printer:1 /v:$host &");
 	exit;
 }
