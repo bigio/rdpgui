@@ -35,6 +35,8 @@ use X11::Protocol;
 
 my $cont_rdpfile;
 my $rdpfile = $ENV{"HOME"} . "/.rdpgui.db";
+# Screen size percentage
+my $percent = 90;
 
 # Calculate screen size
 my $x11 = X11::Protocol->new();
@@ -43,8 +45,8 @@ my @rectangles = $x11->XineramaQueryScreens ();
 my (undef, undef, $rdp_width, $rdp_height) = @{$rectangles[0]};
 
 # 95% of screen
-$rdp_width = $rdp_width * 95 / 100;
-$rdp_height = $rdp_height * 95 / 100;
+$rdp_width = $rdp_width * $percent / 100;
+$rdp_height = $rdp_height * $percent / 100;
 
 # Main Window
 my $mw = new MainWindow;
