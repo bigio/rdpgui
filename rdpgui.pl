@@ -56,7 +56,7 @@ my $frm = $mw->Frame();
 
 # Selection
 my $lst = $frm->Listbox(-selectmode=>'single',
-			-width=>50,
+			-width=>80,
 			-height=>30);
 
 # Populate listbox from file
@@ -91,7 +91,7 @@ MainLoop;
 # This function will be executed when the button is pushed
 sub push_button {
 	my $name = $lst->get('active');
-	my ($host, $user) = split(/\|/, $name);
+	my ($label, $host, $user) = split(/\|/, $name);
 	if ( $txt_srv->get() ne "" ) {
 		$host = $txt_srv->get();
 	}

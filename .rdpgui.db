@@ -1,2 +1,2 @@
-test1:3390|user1
-test2|domain\\user2
+client1|test1:3390|user1
+client2|test2|domain\\user2
