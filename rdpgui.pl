@@ -58,6 +58,7 @@ my $frm = $mw->Frame();
 my $lst = $frm->Listbox(-selectmode=>'single',
 			-width=>80,
 			-height=>30);
+$lst->bind( "<Double-Button-1>", [\&push_button, "push"] );
 
 # Populate listbox from file
 open(my $fh, $rdpfile) or die "Can't open $rdpfile: $!";
