@@ -66,9 +66,10 @@ while ( ! eof($fh) ) {
 	defined( $_ = <$fh> )
 	or die "readline failed for $rdpfile: $!";
 	chomp();
-	$cont_rdpfile = $_;
-
-	$lst->insert('end', $cont_rdpfile);
+	unless ( /^#/ ) {	
+		$cont_rdpfile = $_;
+		$lst->insert('end', $cont_rdpfile);
+	}
 }
 close($fh);
 
