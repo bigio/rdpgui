@@ -30,11 +30,18 @@ use strict;
 use warnings;
 
 use Data::Dumper;
+use File::Path;
 use Tk;
 use X11::Protocol;
 
 my $cont_rdpfile;
 my $rdpfile = $ENV{"HOME"} . "/.rdpgui.db";
+my $rdphome = $ENV{"HOME"} . "/.rdpgui/home";
+
+if ( !-d $rdphome ) {
+	mkpath $rdphome;
+}
+
 # Screen size percentage
 my $percent = 90;
 
@@ -100,6 +107,6 @@ sub push_button {
 	if ( $txt_user->get() ne "" ) {
 		$user = $txt_user->get();
 	}
-	system("xfreerdp /size:${rdp_width}x${rdp_height} /u:$user /sec:tls /cert-ignore /clipboard:1 /compression:1 /printer:1 /v:$host &");
+	system("xfreerdp /size:${rdp_width}x${rdp_height} /u:$user /sec:tls /cert-ignore /clipboard:1 /compression:1 /printer:1 /drive:home,$rdphome /v:$host &");
 	exit;
 }
