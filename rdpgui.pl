@@ -44,7 +44,7 @@ $x11->init_extension('XINERAMA') or die;
 my @rectangles = $x11->XineramaQueryScreens ();
 my (undef, undef, $rdp_width, $rdp_height) = @{$rectangles[0]};
 
-# 95% of screen
+# 90% of screen
 $rdp_width = $rdp_width * $percent / 100;
 $rdp_height = $rdp_height * $percent / 100;
 
