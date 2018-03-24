@@ -107,6 +107,10 @@ sub push_button {
 	if ( $txt_user->get() ne "" ) {
 		$user = $txt_user->get();
 	}
-	system("xfreerdp /size:${rdp_width}x${rdp_height} /u:$user /sec:tls /cert-ignore /clipboard:1 /compression:1 /printer:1 /drive:home,$rdphome /v:$host &");
+	my @a_user = split(/,/, $user);
+	if ( not defined $a_user[1] ) {
+		$a_user[1] = "tls";
+	}
+	system("xfreerdp /size:${rdp_width}x${rdp_height} /u:$a_user[0] /sec:$a_user[1] /cert-ignore /clipboard:1 /compression:1 /printer:1 /drive:home,$rdphome /v:$host &");
 	exit;
 }
