@@ -2,7 +2,7 @@
 
 # BSD 2-Clause License
 # 
-# Copyright (c) 2017, Giovanni Bechis
+# Copyright (c) 2017-2018, Giovanni Bechis
 # All rights reserved.
 # 
 # Redistribution and use in source and binary forms, with or without
