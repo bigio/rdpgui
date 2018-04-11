@@ -62,7 +62,9 @@ my $mw = new MainWindow;
 my $frm = $mw->Frame();
 
 # Selection
-my $lst = $frm->Listbox(-selectmode=>'single',
+my $lst = $frm->Scrolled("Listbox",
+			-scrollbars=>'osoe',
+			-selectmode=>'single',
 			-width=>80,
 			-height=>30);
 $lst->bind( "<Double-Button-1>", [\&push_button, "push"] );
