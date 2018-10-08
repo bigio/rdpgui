@@ -113,6 +113,10 @@ sub push_button {
 	if ( not defined $a_user[1] ) {
 		$a_user[1] = "tls";
 	}
-	system("xfreerdp /size:${rdp_width}x${rdp_height} /u:$a_user[0] /sec:$a_user[1] /cert-ignore /clipboard:1 /compression:1 /printer:1 /drive:home,$rdphome /gdi:sw /bpp:15 /v:$host &");
-	exit;
+	if( $host ne "" ) {
+	  system("xfreerdp /size:${rdp_width}x${rdp_height} /u:$a_user[0] /sec:$a_user[1] /cert-ignore /clipboard:1 /compression:1 /printer:1 /drive:home,$rdphome /gdi:sw /bpp:15 /v:$host &");
+	  exit;
+	} else {
+	  exit;
+	}
 }
