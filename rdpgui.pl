@@ -64,7 +64,7 @@ if ( -f $rdpconf ) {
 }
 
 # Screen size percentage
-my $percent = 90;
+my $percent = ($a_conf{"percent"})?$a_conf{"percent"}:90;
 
 # Calculate screen size
 my $x11 = X11::Protocol->new();
