@@ -36,10 +36,31 @@ use X11::Protocol;
 
 my $cont_rdpfile;
 my $rdpfile = $ENV{"HOME"} . "/.rdpgui.db";
+my $rdpconf = $ENV{"HOME"} . "/.rdpgui/config";
 my $rdphome = $ENV{"HOME"} . "/.rdpgui/home";
+my @tmp_conf;
+my %a_conf;
+my $keyboard;
 
 if ( !-d $rdphome ) {
 	mkpath $rdphome;
+}
+
+# Read config file
+if ( -f $rdpconf ) {
+  my $i = 0;
+  open(my $fh, $rdpconf) or die "Can't open $rdpconf: $!";
+  while ( ! eof($fh) ) {
+	defined( $_ = <$fh> )
+	or die "readline failed for $rdpconf: $!";
+	chomp();
+	unless ( /^#/ ) {
+		@tmp_conf = split("=", $_);
+		$a_conf{"$tmp_conf[0]"} = $tmp_conf[1];
+	}
+	$i++;
+  }
+  close($fh);
 }
 
 # Screen size percentage
@@ -114,7 +135,10 @@ sub push_button {
 		$a_user[1] = "tls";
 	}
 	if( $host ne "" ) {
-	  system("xfreerdp /size:${rdp_width}x${rdp_height} /u:$a_user[0] /sec:$a_user[1] /cert-ignore /clipboard:1 /compression:1 /printer:1 /drive:home,$rdphome /gdi:sw /bpp:15 /v:$host &");
+	  if( $a_conf{"keyboard"} ) {
+	    $keyboard = "/kbd:$a_conf{'keyboard'}";
+	  }
+	  system("xfreerdp /size:${rdp_width}x${rdp_height} /u:$a_user[0] /sec:$a_user[1] /cert-ignore /clipboard:1 /compression:1 /printer:1 /drive:home,$rdphome /gdi:sw /bpp:15 $keyboard /v:$host &");
 	  exit;
 	} else {
 	  exit;
