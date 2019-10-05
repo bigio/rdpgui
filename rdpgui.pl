@@ -118,6 +118,8 @@ $lbl_user->grid(-row=>3,-column=>5);
 $txt_user->grid(-row=>3,-column=>6);
 $but->grid(-row=>4,-column=>1,-columnspan=>6);
 
+$mw->bind('<KeyRelease-Escape>' => sub{ exit });
+
 MainLoop;
 
 # This function will be executed when the button is pushed
