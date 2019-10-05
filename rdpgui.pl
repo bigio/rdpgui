@@ -49,7 +49,7 @@ if ( !-d $rdphome ) {
 # Read config file
 if ( -f $rdpconf ) {
   my $i = 0;
-  open(my $fh, $rdpconf) or die "Can't open $rdpconf: $!";
+  open(my $fh, "<", $rdpconf) or die "Can't open $rdpconf: $!";
   while ( ! eof($fh) ) {
 	defined( $_ = <$fh> )
 	or die "readline failed for $rdpconf: $!";
@@ -91,12 +91,12 @@ my $lst = $frm->Scrolled("Listbox",
 $lst->bind( "<Double-Button-1>", [\&push_button, "push"] );
 
 # Populate listbox from file
-open(my $fh, $rdpfile) or die "Can't open $rdpfile: $!";
+open(my $fh, "<", $rdpfile) or die "Can't open $rdpfile: $!";
 while ( ! eof($fh) ) {
 	defined( $_ = <$fh> )
 	or die "readline failed for $rdpfile: $!";
 	chomp();
-	unless ( /^#/ ) {	
+	unless ( /^#/ ) {
 		$cont_rdpfile = $_;
 		$lst->insert('end', $cont_rdpfile);
 	}
