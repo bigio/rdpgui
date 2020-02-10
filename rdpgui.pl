@@ -73,8 +73,8 @@ my @rectangles = $x11->XineramaQueryScreens ();
 my (undef, undef, $rdp_width, $rdp_height) = @{$rectangles[0]};
 
 # 90% of screen
-$rdp_width = $rdp_width * $percent / 100;
-$rdp_height = $rdp_height * $percent / 100;
+$rdp_width = int($rdp_width * $percent / 100);
+$rdp_height = int($rdp_height * $percent / 100);
 
 # Main Window
 my $mw = new MainWindow;
