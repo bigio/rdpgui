@@ -140,7 +140,7 @@ sub push_button {
 	  if( $a_conf{"keyboard"} ) {
 	    $keyboard = "/kbd:$a_conf{'keyboard'}";
 	  }
-	  system("xfreerdp /size:${rdp_width}x${rdp_height} /u:$a_user[0] /sec:$a_user[1] /cert-ignore /clipboard:1 /compression:1 /printer:1 /drive:home,$rdphome /gdi:sw /bpp:15 $keyboard /v:$host &");
+	  system("xfreerdp /size:${rdp_width}x${rdp_height} /u:$a_user[0] /sec:$a_user[1] /cert-ignore +clipboard +compression +printer /drive:home,$rdphome /gdi:sw /bpp:15 $keyboard /v:$host &");
 	  exit;
 	} else {
 	  exit;
