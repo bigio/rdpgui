@@ -29,7 +29,6 @@
 use strict;
 use warnings;
 
-use Data::Dumper;
 use File::Path;
 use Tk;
 use X11::Protocol;
